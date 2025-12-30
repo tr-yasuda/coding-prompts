@@ -1,13 +1,17 @@
 # ガイドライン
 
-## ユーザー対応方針
+### 必須ルール
 - **必ず日本語で回答する。**
+- 不明点・曖昧な要件がある場合は、**自己判断せず必ずユーザーに確認する。**
+- 確認が必要な点は、**箇条書きで明示する。**
+  （例：「1) ファイル名は任意か？ 2) 出力先は `z/` で良いか？」）。
+
+---
+
+### 表記ルール
 - 専門用語・英語表記は必要に応じて使用する
   - 和文中では **前後に半角スペースを入れる**
   - 初出時は簡潔な補足説明を付ける
-- 不明点・曖昧な要件がある場合は、**自己判断せず必ずユーザーに確認する。**
-- 確認が必要な点は、**箇条書きで明示する**  
-  （例：「1) ファイル名は任意か？ 2) 出力先は `z/` で良いか？」）。
 
 ---
 
@@ -102,7 +106,8 @@ const array = [1, 2, 3].map((number) => number * 2)
 ### その他
 
 - any の使用は禁止。必要なら unknown またはジェネリクスを検討。
-- 非同期処理は必ず async/await を使用。then/catch のみは禁止。
+- 非同期処理は必ず async/await を使用する。
+- Promise チェーン（then/catch）のみで完結する書き方は禁止する。
 - 例外処理は明示的に記述し、握りつぶさない。
 
 ---
@@ -118,6 +123,7 @@ Conventional Commits 形式を使用する：
 
 - subject は **命令形・簡潔・50文字以内**
 - scope は変更対象の論理単位（module / package / feature）
+- Pull Request のタイトルも、この形式をベースにする
 
 ---
 
@@ -138,4 +144,55 @@ Conventional Commits 形式を使用する：
 ```text
 feat(result): add flatten method for nested Results
 fix(option): handle None in andThen correctly
+```
+
+---
+
+## Pull Request 規則
+
+### title 基本形式
+
+Pull Request のタイトルは、Conventional Commits の形式で行うが、スコープは含めない:
+
+<type>: <short summary>
+
+### 例
+
+```text
+fix: handle timeout in external API call
+feat: support multiple TURN servers
+```
+
+### description 基本形式
+
+PULL_REQUEST_TEMPLATE.md が存在すればそれに準拠する
+
+存在しない場合は、以下の内容が含まれるように記述する:
+
+- 概要
+  - 何を・なぜ変更したか
+- 変更内容
+  - 具体的に何を変えたか
+- 影響範囲
+  - 影響を受ける機能・API・設定など
+- 確認方法
+  - レビュアーがどう確認すればよいか
+
+### 例
+
+```markdown
+## Summary
+Improve input validation to handle edge cases.
+
+## Changes
+- Add validation for empty input
+- Update error messages
+- Refactor related helper functions
+
+## Impact
+- Affects form submission behavior
+
+## How to test
+- Submit form with empty input
+- Confirm proper error message is shown
 ```
